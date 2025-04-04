@@ -1,0 +1,15 @@
+workflows:
+  ios-workflow:
+    name: iOS Build
+    max_build_duration: 30
+    environment:
+      vars:
+        XCODE_WORKSPACE: "PersonalShopperCalculator.xcodeproj"
+        XCODE_SCHEME: "PersonalShopperCalculator"
+      xcode: latest
+    scripts:
+      - name: Build app
+        script: |
+          xcodebuild -project "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" -sdk iphoneos -configuration Release build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+    artifacts:
+      - build/ios/Release-iphoneos/*.app
